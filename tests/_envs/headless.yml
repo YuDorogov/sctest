@@ -1,0 +1,15 @@
+# `headless` environment config goes here
+
+modules:
+    enabled:
+        - Asserts
+        - \Helper\Acceptance
+        - WebDriver:
+            url: "http://tt.smartcitycloud.ru"
+            browser: chrome
+            host: standalone_chrome
+            capabilities:
+                unexpectedAlertBehaviour: 'accept'
+                chromeOptions:
+                    args:
+                        ['--disable-infobars', '--window-size=1920,1080', '--disable-gpu', '--headless'] 
