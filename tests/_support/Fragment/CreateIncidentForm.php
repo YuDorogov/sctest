@@ -4,16 +4,13 @@ namespace Fragment;
 
 use \Codeception\Util\Locator;
 use \Model\Incident;
+use \Component\Select2;
 
 class CreateIncidentForm {
-    /**
-     * @var \AcceptanceTester
-     */
+    /** @var \AcceptanceTester */
     protected $tester;
 
-    /**
-     * @var \Model\Incident
-     */
+    /** @var \Model\Incident */
     public $incident;
 
     public function __construct(\AcceptanceTester $I) {
@@ -35,6 +32,8 @@ class CreateIncidentForm {
 
     public static $submitButton = "button[action='CreateByECOR']";
 
+    public static $ksipType_select2 = "#s2id_ksipType";
+
     public function fillAddressField($text) {
         $I = $this->tester;
 
@@ -51,47 +50,41 @@ class CreateIncidentForm {
         $this->incident->address = $selectesAddress;
     }
 
+    public function fillDescriptionField($text) {
+        $I = $this->tester;
+        $I->fillField(static::$ksipDescriptionField, $text);
+        $this->incident->ksipDescription = $text;
+    }
+
+    public function fillCommentField($text) {
+        $I = $this->tester;
+        $I->fillField(static::$commentField, $text);
+        $this->incident->comment = $text;
+    }
+
     public function selectKsipType($typeText = "") {
         $I = $this->tester;
+        $select2 = new Select2($I, static::$ksipType_select2);
+        $select2->expand();
+        $select2->options();
+        $select2->hide();
 
-        $I->click("#s2id_ksipType");
-        $select2ResultList = "#select2-drop ul.select2-results";
-        $I->waitForElementVisible($select2ResultList, 15);
-
-        $select2ResultElement = $select2ResultList." li .select2-result-label";
-        $I->waitForElementVisible($select2ResultElement, 15);
-
-        $optionsArr = $I->grabMultiple($select2ResultElement);
-        codecept_debug($optionsArr);
-        $I->click("#select2-drop-mask");
-
-        foreach($optionsArr as $option) {
-            $I->click("#s2id_ksipType");
-            $I->waitForElementVisible($select2ResultList, 15);
-            $I->waitForElementVisible($select2ResultElement, 15);
-
-            $ksipType = Locator::contains($select2ResultElement, $option);
-            $I->click($ksipType);
+        foreach($select2->options() as $option) {
+            codecept_debug($option);
+            $select2->expand();
+            $select2->select($option);
             sleep(2);
             try {
-                $I->waitForElementVisible(".table-incidents tr.grid-row.data", 15);
+                $I->waitForElementVisible(".table-incidents tr.grid-row.data", 5);
                 continue;
             } catch(\Facebook\WebDriver\Exception\NoSuchElementException $e) {
                 $this->incident->ksipType = $option;
+                codecept_debug($option);
+                codecept_debug("--------------------------------------------");
                 return;
             }
         }
         throw new Exception("Созданы инциденты для каждого типа КСиП");
-
-        // $c = $I->countVisible($select2ResultElement);
-        // $index = rand(1, $c);
-
-        // $ksipType = Locator::elementAt($select2ResultElement, $index);
-        // $selectesType = $I->grabTextFrom($ksipType);
-
-        // $I->click($ksipType);
-
-        // $this->incident->ksipType = $selectesType;
     }
 
     public function submit() {
@@ -99,24 +92,10 @@ class CreateIncidentForm {
         $I->click(static::$submitButton);
         $I->waitForElementVisible("#kitform-selectOrganization", 10);
 
-        $I->click("#kitform-selectOrganization .select2-choice");
-        $select2ResultList = "#select2-drop ul.select2-results";
-        $I->waitForElementVisible($select2ResultList, 15);
+        $org = $I->grabTextFrom("#kitform-selectOrganization .select2-choice");
 
-        $select2ResultElement = $select2ResultList." li .select2-result-label";
-        $I->waitForElementVisible($select2ResultElement, 15);
-        $c = $I->countVisible($select2ResultElement);
-        $index = rand(1, $c);
-
-        $org = Locator::elementAt($select2ResultElement, $index);
-        $selecteOrg = $I->grabTextFrom($org);
-
-        $I->click($org);
-
-        $this->incident->organization = $selecteOrg;
-
+        $this->incident->organization = $org;
         $I->click("#kitform-selectOrganization button#ok");
-
         return $this->incident;
     }
 }

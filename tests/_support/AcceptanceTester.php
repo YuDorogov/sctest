@@ -55,4 +55,11 @@ class AcceptanceTester extends \Codeception\Actor
         }
         return null;
     }
+
+    public function wClick($locator, $timeout = 5) {
+        $I = $this;
+        $I->waitForElement($locator, $timeout);
+        $I->waitForElementVisible($locator, $timeout);
+        $I->click($locator);
+    }
 }

@@ -9,19 +9,13 @@ use \Fragment\Settings\VisFormPanel;
 class Map extends \Page\BasePage {
     public static $URL = "/#/vis/eb3e64e5-dba5-516c-82c3-7755cd857009/00d6c393-a23e-6e38-49a8-97489f723ff1";
 
-    /**
-     * @var \AcceptanceTester;
-     */
+    /** @var \AcceptanceTester */
     protected $tester;
 
-    /**
-     * @var \Fragment\ECOR_MO\Map\Facets
-     */
+    /** @var \Fragment\ECOR_MO\Map\Facets */
     protected $facets;
 
-    /**
-     * @var \Fragment\ECOR_MO\Map\RightPanel
-     */
+    /** @var \Fragment\ECOR_MO\Map\RightPanel */
     protected $rightPanel;
 
 

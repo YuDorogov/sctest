@@ -10,5 +10,6 @@ class BasePage {
     }
 
     public function validate() {
+        return;
     }
 }
