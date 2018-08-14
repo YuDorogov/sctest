@@ -45,7 +45,7 @@ class Process extends \Page\BasePage {
     public function completeIncident($id) {
         $I = $this->tester;
         $cell = Locator::contains(".grid-cell-content", $id);
-        $I->click("//tr[(.//$cell)]//i[contains(@class, 'icon-edit')]");
+        $I->click("$cell//i[contains(@class, 'icon-edit')]");
         $I->waitForElementVisible("#kitform-InfoCardTakeInWork", 10);
         $I->wClick("#takeInWork");
         $I->waitForElementVisible("#kitform-finishConfirm");
@@ -53,5 +53,20 @@ class Process extends \Page\BasePage {
         $I->waitForElementNotVisible("#kitform-finishConfirm", 10);
         $I->waitForElementNotVisible("#kitform-InfoCardTakeInWork", 10);
         $I->dontSeeElement($cell);
+    }
+
+    public function transferToCUKS($id) {
+        $I = $this->tester;
+        $this->selectRow($id);
+        $I->click(Locator::contains(".btn", "Делегировать В ЦУКС"));
+        $I->waitForElementVisible("#kitform-delegateConfirm", 10);
+        $I->click("#kitform-delegateConfirm #ok");
+        $I->waitForElementNotVisible("#kitform-delegateConfirm", 10);
+        $I->dontSeeElement($this->rowWithId($id));
+    }
+
+    private function rowWithId($id) {
+        $cell = Locator::contains(".grid-cell-content", $id);
+        return "//tr[(.//$cell)]";
     }
 }

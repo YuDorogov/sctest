@@ -5,9 +5,7 @@ use \Codeception\Util\Locator;
 
 class VisFormPanel
 {
-    /**
-     * @var \AcceptanceTester;
-     */
+    /** @var \AcceptanceTester */
     protected $tester;
 
     public function __construct(\AcceptanceTester $I) {

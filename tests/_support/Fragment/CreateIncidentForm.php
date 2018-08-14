@@ -39,12 +39,14 @@ class CreateIncidentForm {
 
         $I->fillField(static::$addressField, $text);
         $I->waitForElementVisible(static::$addressAutocompleteList, 15);
+        sleep(2);
 
         $c = $I->countVisible(static::$addressAutocompleteElement);
-        $index = rand(1, $c);
+        $index = mt_rand(1, $c);
 
         $addressSelector = Locator::elementAt(static::$addressAutocompleteElement, $index);
         $selectesAddress = $I->grabTextFrom($addressSelector);
+        codecept_debug("\tDEBUG | selected address: ".$selectesAddress);
         $I->click($addressSelector);
 
         $this->incident->address = $selectesAddress;

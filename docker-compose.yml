@@ -12,3 +12,5 @@ services:
             - standalone_chrome
         volumes:
             - .:/project
+        environment:
+            - ENV=headless

@@ -20,7 +20,10 @@ class SettingsCest
         $I->waitForElementVisible(".http-loading-spinner-container");
     }
 
-    public function test(AcceptanceTester $I, \Page\Settings $setting)
+    /**
+     * @group exclude
+     */
+    public function setGasterUrl(AcceptanceTester $I, \Page\Settings $setting)
     {
         $setting->navigate();
         $visFormPanel = $setting->openEditFormFor("GAsterUrl");
