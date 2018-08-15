@@ -10,14 +10,10 @@ class Settings extends BasePage
 {
     public static $URL = "/#/vis/513e782d-d13d-ab72-7d04-3a4e6a81f954/bc9bca93-0935-2c0e-581e-50c9ed6d5188";
 
-    /**
-     * @var \AcceptanceTester;
-     */
+    /** @var \AcceptanceTester */
     protected $tester;
 
-    /**
-     * @var \Fragment\Settings\VisFormPanel;
-     */
+    /** @var \Fragment\Settings\VisFormPanel */
     public $visFormPanel;
 
     public function __construct(\AcceptanceTester $I) {

@@ -23,11 +23,16 @@ class SettingsCest
     /**
      * @group exclude
      */
-    public function setGasterUrl(AcceptanceTester $I, \Page\Settings $setting)
+    public function set(AcceptanceTester $I, \Page\Settings $setting)
     {
         $setting->navigate();
         $visFormPanel = $setting->openEditFormFor("GAsterUrl");
         $visFormPanel->fillValue("tt.smartcitycloud.ru/gaster");
+        $visFormPanel->submit();
+        $setting->dontSeeEditForm();
+
+        $visFormPanel = $setting->openEditFormFor("SmartBusHost");
+        $visFormPanel->fillValue("cb.tt.smartcitycloud.ru:8000");
         $visFormPanel->submit();
         $setting->dontSeeEditForm();
     }

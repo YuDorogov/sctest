@@ -34,7 +34,6 @@ class CreateIncidentCest
     }
 
     public function _after() {
-        sleep(10);
     }
 
     public function testIncident_Create(AcceptanceTester $I, MapPage $mapPage, Registered $regIncidentPage) {

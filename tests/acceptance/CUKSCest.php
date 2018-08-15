@@ -29,7 +29,6 @@ class CUKSCest
     }
 
     public function _after() {
-        sleep(10);
     }
 
     public function testIncident_Create(
