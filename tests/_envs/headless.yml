@@ -7,7 +7,7 @@ modules:
         - WebDriver:
             url: "http://d.smartcitycloud.ru"
             browser: chrome
-            host: localhost
+            host: testfarm.smartcitycloud.ru
             capabilities:
                 unexpectedAlertBehaviour: 'accept'
                 chromeOptions:
