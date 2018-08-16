@@ -9,4 +9,4 @@ extensions:
     enabled:
         - Codeception\Extension\RunFailed
         - Codeception\Extension\Recorder:
-            delete_successful: true
+            delete_successful: false
