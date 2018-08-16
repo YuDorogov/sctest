@@ -1,5 +1,5 @@
 <?php
-
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 use \Facebook\WebDriver\Remote\RemoteWebDriver;
 use \Facebook\WebDriver\WebDriverBy as By;
 use \Codeception\Util\Locator;
