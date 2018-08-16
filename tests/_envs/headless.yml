@@ -5,7 +5,7 @@ modules:
         - Asserts
         - \Helper\Acceptance
         - WebDriver:
-            url: "http://tt.smartcitycloud.ru"
+            url: "http://d.smartcitycloud.ru"
             browser: chrome
             host: selenium
             capabilities:
