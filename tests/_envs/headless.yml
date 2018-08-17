@@ -12,4 +12,4 @@ modules:
                 unexpectedAlertBehaviour: 'accept'
                 chromeOptions:
                     args:
-                        ['--disable-infobars', '--window-size=1920,1080', '--disable-gpu', '--headless'] 
+                        ['--disable-infobars', '--window-size=1920,1080', '--disable-gpu', '--headless', '--no-sandbox'] 
